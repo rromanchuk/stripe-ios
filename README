@@ -9,7 +9,7 @@ StripeConnection *stripe = [StripeConnection connectionWithPublishableKey:@"pk_d
 StripeCard *card =  [[StripeCard alloc] init];
 card.number =       @"4111111111111111";
 card.name =         @"Bob Dylan";
-card.securityCode = "010";
+card.securityCode = @"010";
 card.expiryMonth =  [NSNumber numberWithInteger:2];
 card.expiryYear =   [NSNumber numberWithInteger:2014];
 
