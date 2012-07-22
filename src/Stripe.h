@@ -1,5 +1,7 @@
 #define kStripeAPIBase @"https://%@:@api.stripe.com/v1"
+#define kStripeCustomerPath @"customers"
 #define kStripeTokenPath @"tokens"
+#define kStripeChargePath @"charges"
 
 @interface StripeCard : NSObject
 
@@ -23,6 +25,12 @@
 
 @end
 
+@interface StripeCustomer : NSObject
+@property (strong, nonatomic) NSString *description;
+@property (strong, nonatomic) NSString *token;
+- (id)initWithResponseDictionary:(NSDictionary *)customer;
+@end
+
 @interface StripeResponse : NSObject
 @property (strong, nonatomic) NSNumber *createdAt;
 @property (strong, nonatomic) NSString *currency;
@@ -39,8 +47,14 @@
 
 + (StripeConnection *)connectionWithPublishableKey:(NSString *)publishableKey;
 - (id)initWithPublishableKey:(NSString *)publishableKey;
+
 - (void)performRequestWithCard:(StripeCard *)card amountInCents:(NSNumber *)amount currency:(NSString *)currency success:(void (^)(StripeResponse *response))success error:(void (^)(NSError *error))error;
+
 - (void)performRequestWithCard:(StripeCard *)card amountInCents:(NSNumber *)amount success:(void (^)(StripeResponse *response))success error:(void (^)(NSError *error))error;
+- (void)createCustomerWithCard:(StripeCard *)card withDescription:(NSString *)description success:(void (^)(StripeResponse *response))success error:(void (^)(NSError *error))error;
+- (void)performRequestWithCustomer:(StripeCustomer *)customer amountInCents:(NSNumber *)amount success:(void (^)(StripeResponse *response))success error:(void (^)(NSError *error))error;
+
+
 
 @end
 
